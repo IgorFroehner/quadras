@@ -15,11 +15,11 @@ def agendamento():
     for row in rows:
         table.append({
             'Data e Hora': row.data_hora,
-            'Quadra:': f'{row.quadra}',
-            # 'Quadra:': f'Bloco: {row.quadra.bloco.id_bloco}; Quadra: {row.quadra.largura}m X {row.quadra.comprimento}m',
-            'Esporte': row.esporte,
+            # 'Quadra:': f'{row.quadra}',
+            'Quadra:': f'Bloco: {row.quadra.bloco.id_bloco}; Quadra: {row.quadra.largura}m X {row.quadra.comprimento}m',
+            'Esporte': row.esporte.nome,
         })
-    return render_template('table.html', title='Agendamento', table=rows)
+    return render_template('table.html', title='Agendamento', table=table)
 
 
 @blue.route('/agendamento_form', methods=['GET', 'POST'])

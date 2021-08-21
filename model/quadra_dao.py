@@ -17,6 +17,10 @@ def find(params: dict):
     return Quadra.objects(__raw__=params).first()
 
 
+def find_by_id(id: str):
+    return Quadra.objects.get(id=id)
+
+
 def insert(quadra: Quadra):
     quadra.save()
 

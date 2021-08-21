@@ -14,7 +14,7 @@ class AgendamentoForm(FlaskForm):
 
     def __init__(self):
         super(AgendamentoForm, self).__init__()
-        self.quadra.choices = [(quadra,
+        self.quadra.choices = [(quadra.id,
                                 f'(Bloco: {quadra.bloco.id_bloco}; Quadra: {quadra.largura}m X'
                                 f' {quadra.comprimento}m)') for quadra in quadra_dao.select_all()]
         self.esporte.choices = [(esporte.nome, esporte.nome) for esporte in esporte_dao.select_all()]

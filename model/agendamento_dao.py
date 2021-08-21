@@ -28,10 +28,6 @@ def from_dict(_dict: dict) -> Agendamento:
     print(_dict['quadra'])
     return Agendamento(
         data_hora=datetime.datetime.combine(_dict['date'], _dict['hora']),
-        quadra=quadra_dao.find({
-            'comprimento': _dict['quadra'].comprimento,
-            'largura': _dict['quadra'].largura,
-            'bloco': _dict['quadra'].bloco
-        }),
+        quadra=quadra_dao.find_by_id(_dict['quadra']),
         esporte=esporte_dao.find({'nome': _dict['esporte']})
     )
