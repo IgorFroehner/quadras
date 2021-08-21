@@ -12,10 +12,9 @@ class QuadraForm(FlaskForm):
                         choices=[(bloco.id_bloco, bloco.id_bloco) for bloco in bloco_dao.select_all()],
                         validators=[DataRequired()])
     esportes = SelectMultipleField('Esportes',
-                                   choices=[(esporte.id_esporte, esporte.nome) for esporte in esporte_dao.select_all()],
-                                   coerce=int)
+                                   choices=[(esporte.nome, esporte.nome) for esporte in esporte_dao.select_all()])
 
     def __init__(self):
         super(QuadraForm, self).__init__()
         self.bloco.choices = [(bloco.id_bloco, bloco.id_bloco) for bloco in bloco_dao.select_all()]
-        self.esportes.choices = [(esporte.id_esporte, esporte.nome) for esporte in esporte_dao.select_all()]
+        self.esportes.choices = [(esporte.nome, esporte.nome) for esporte in esporte_dao.select_all()]

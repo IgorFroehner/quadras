@@ -14,8 +14,11 @@
         {% for field in form if field.widget.input_type != 'hidden' %}
             <div class="mb-3">
                 {{ field.label(class_="form-label") }}
+
                 {% if field.type == 'SelectField' or field.type == 'SelectMultipleField' %}
                     {{ field(class_="form-select") }}
+                {% elif field.type == 'DateTimeField' %}
+                    {{ field(type_='datetyme-local', class_='form-control') }}
                 {% else %}
                     {{ field(class_="form-control") }}
                 {% endif %}

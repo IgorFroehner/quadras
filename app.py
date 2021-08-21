@@ -1,19 +1,19 @@
-import os
 
 from flask import Flask, render_template
 from decouple import config
-from flask_sqlalchemy import SQLAlchemy
+from flask_mongoengine import MongoEngine
 
 app = Flask(__name__)
 
 
 def config_app(_app):
-    db_password = config('DB_PASSWORD')
-    db_user = config('DB_USER')
+    db_pass = config('MONGO_PASS')
+    db_user = config('MONGO_USER')
     _app.config['SECRET_KEY'] = config('SECRET_KEY')
-    _app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{db_user}:{db_password}@localhost:5432/quadras"
-    _app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    _db = SQLAlchemy(app)
+    _app.config['MONGODB_SETTINGS'] = {
+        'host': f'mongodb+srv://{db_user}:{db_pass}@cluster0.ogn2b.mongodb.net/quadras?retryWrites=true&w=majority'
+    }
+    _db = MongoEngine(app)
     return _app, _db
 
 

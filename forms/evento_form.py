@@ -12,7 +12,7 @@ class EventoForm(FlaskForm):
     hora_inicio = TimeField('Hora Início', validators=[DataRequired()])
     data_fim = DateField('Data Fim', validators=[DataRequired()])
     hora_fim = TimeField('Hora Fim', validators=[DataRequired()])
-    blocos = SelectMultipleField('Blocos', validators=[DataRequired()], coerce=str)
+    blocos = SelectMultipleField('Blocos', validators=[DataRequired()])
 
     def __init__(self):
         super(EventoForm, self).__init__()

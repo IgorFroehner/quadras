@@ -9,5 +9,5 @@ blueprints = [
     quadra.blue,
     bloco.blue,
     esporte.blue,
-    evento.blue
+    evento.blue,
 ]

@@ -2,8 +2,8 @@
 from app import db
 
 
-class Usuario(db.Model):
-    cpf = db.Column(db.String(11), primary_key=True)
-    email = db.Column(db.String(150), nullable=False)
-    senha = db.Column(db.String(50), nullable=False)
-    permissao = db.Column(db.String(15))
+class Usuario(db.Document):
+    cpf = db.StringFiedl(required=True)
+    email = db.EmailField(required=True)
+    senha = db.StringField(required=True)
+    permissao = db.StringField(15)

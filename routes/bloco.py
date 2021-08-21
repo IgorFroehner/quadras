@@ -9,7 +9,9 @@ blue = Blueprint('bloco', __name__, static_folder='static', template_folder='tem
 @blue.route('/bloco')
 def bloco():
     rows = dao.select_all()
-    table = [dict(row) for row in rows]
+    table = []
+    for row in rows:
+        table.append({'Id Bloco': row.id_bloco})
     return render_template('table.html', title='Bloco', table=table)
 
 

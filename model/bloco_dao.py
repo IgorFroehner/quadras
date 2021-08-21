@@ -1,18 +1,17 @@
+
 from app import db
 
 
-class Bloco(db.Model):
-    __tablename__ = 'bloco'
-    id_bloco = db.Column(db.String, primary_key=True)
+class Bloco(db.Document):
+    id_bloco = db.StringField(required=True, max_length=10)
 
 
 def select_all():
-    return db.session.query(Bloco.id_bloco).all()
+    return Bloco.objects
 
 
-def select_next_id() -> int:
-    f = db.func.nextval('bloco_id_bloco_seq')
-    return db.session.query(f).first()[0]
+def find(params: dict):
+    return Bloco.objects(__raw__=params).first()
 
 
 def insert(bloco: Bloco):
@@ -22,7 +21,7 @@ def insert(bloco: Bloco):
 
 def insert_from_dict(_dict: dict):
     inst = from_dict(_dict)
-    insert(inst)
+    inst.save()
 
 
 def from_dict(_dict: dict) -> Bloco:

@@ -1,43 +1,33 @@
+import datetime as dt
 from app import db
 
 
-class Evento(db.Model):
-    id_evento = db.Column(db.Integer, primary_key=True)
-    titulo = db.Column(db.String(100))
-    data_inicio = db.Column(db.Date, nullable=False)
-    data_fim = db.Column(db.Date, nullable=False)
-    hora_inicio = db.Column(db.Time, nullable=False)
-    hora_fim = db.Column(db.Time, nullable=False)
+class Evento(db.Document):
+    titulo = db.StringField(required=True, max_length=20)
+    inicio = db.DateTimeField()
+    fim = db.DateTimeField()
+    blocos = db.ListField(db.StringField())
 
 
 def select_all():
-    # TODO: fazer retornar os blocos que o evento vai ocorrer
-    return db.session.query(Evento.id_evento, Evento.titulo, Evento.data_inicio, Evento.hora_inicio, Evento.data_fim,
-                            Evento.hora_fim) \
-        .all()
-
-
-def select_next_id() -> int:
-    f = db.func.nextval('evento_id_evento_seq')
-    return db.session.query(f).first()[0]
+    return Evento.objects
 
 
 def insert(evento: Evento):
-    db.session.add(evento)
-    db.session.commit()
+    evento.save()
 
 
 def insert_from_dict(_dict: dict):
     inst = from_dict(_dict)
-    insert(inst)
+    inst.save()
 
 
 def from_dict(_dict: dict) -> Evento:
-    return Evento(
-        id_evento=(_dict['id_evento'] if 'id_evento' in _dict else None),
+    evento = Evento(
         titulo=_dict['titulo'],
-        data_inicio=_dict['data_inicio'],
-        data_fim=_dict['data_fim'],
-        hora_inicio=_dict['hora_inicio'],
-        hora_fim=_dict['hora_fim'],
+        inicio=dt.datetime.combine(_dict['data_inicio'], _dict['hora_inicio']),
+        fim=dt.datetime.combine(_dict['data_fim'], _dict['hora_fim']),
     )
+    for nome in _dict['blocos']:
+        evento.blocos.append(nome)
+    return evento

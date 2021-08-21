@@ -11,8 +11,15 @@ blue = Blueprint('agendamento', __name__, static_folder='static', template_folde
 @blue.route('/agendamento')
 def agendamento():
     rows = dao.select_all()
-    table = [dict(row) for row in rows]
-    return render_template('table.html', title='Agendamento', table=table)
+    table = []
+    for row in rows:
+        table.append({
+            'Data e Hora': row.data_hora,
+            'Quadra:': f'{row.quadra}',
+            # 'Quadra:': f'Bloco: {row.quadra.bloco.id_bloco}; Quadra: {row.quadra.largura}m X {row.quadra.comprimento}m',
+            'Esporte': row.esporte,
+        })
+    return render_template('table.html', title='Agendamento', table=rows)
 
 
 @blue.route('/agendamento_form', methods=['GET', 'POST'])
@@ -20,10 +27,7 @@ def agendamento_form():
     form = AgendamentoForm()
     erro = None
     if form.validate_on_submit():
-        try:
-            dao.insert_from_dict(form.data)
-        except SQLAlchemyError as e:
-            erro = e
-            return render_template('form.html', title='Agendamento', form=form, erro=erro)
+        print(form.data)
+        dao.insert_from_dict(form.data)
         return redirect('/agendamento')
     return render_template('form.html', title='Agendamento', form=form, erro=erro)

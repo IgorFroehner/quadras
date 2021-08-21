@@ -9,7 +9,11 @@ blue = Blueprint('esporte', __name__, static_folder='static', template_folder='t
 @blue.route('/esporte')
 def esporte():
     rows = dao.select_all()
-    table = [dict(row) for row in rows]
+    table = []
+    for row in rows:
+        table.append({
+            'Nome': row.nome
+        })
     return render_template('table.html', title='Esporte', table=table)
 
 
@@ -17,6 +21,7 @@ def esporte():
 def esporte_form():
     form = EsporteForm()
     if form.validate_on_submit():
+        print(form.data)
         dao.insert_from_dict(form.data)
         return redirect('/esporte')
     return render_template('form.html', title='Esporte', form=form)
