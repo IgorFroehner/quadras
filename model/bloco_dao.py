@@ -3,7 +3,7 @@ from app import db
 
 
 class Bloco(db.Document):
-    id_bloco = db.StringField(required=True, max_length=10)
+    id_bloco = db.StringField(required=True, max_length=50)
 
 
 def select_all():
@@ -15,8 +15,7 @@ def find(params: dict):
 
 
 def insert(bloco: Bloco):
-    db.session.add(bloco)
-    db.session.commit()
+    bloco.save()
 
 
 def insert_from_dict(_dict: dict):

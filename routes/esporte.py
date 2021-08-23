@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect
+from flask_login import login_required
 
 from model import esporte_dao as dao
 from forms import EsporteForm
@@ -18,6 +19,7 @@ def esporte():
 
 
 @blue.route('/esporte_form', methods=['GET', 'POST'])
+@login_required
 def esporte_form():
     form = EsporteForm()
     if form.validate_on_submit():

@@ -13,6 +13,12 @@ def select_all():
     return Quadra.objects
 
 
+def find_esportes(id_quadra: str):
+    quadra = Quadra.objects(id=id_quadra).first()
+    esportes = quadra.esportes
+    return esportes
+
+
 def find(params: dict):
     return Quadra.objects(__raw__=params).first()
 

@@ -42,12 +42,25 @@
                     </li>
                 </ul>
             </div>
+            <div class="text-white">
+                {% if current_user.is_authenticated %}
+                    {{ current_user.permissao }}: {{ current_user.email }}
+                    <a href="/logout">
+                        <input type="button" class="btn btn-success" value="Logout">
+                    </a>
+                {% else %}
+                    <a href="/login">
+                        <input type="button" class="btn btn-success" value="Login">
+                    </a>
+                {% endif %}
+
+            </div>
         </div>
     </nav>
 
     {% block content %}{% endblock %}
 
-    <footer class="text-black-50 bg-dark text-white">
+    <footer class="text-black-50 bg-dark text-white text-center">
         <div class="text-white">
             &copy; <a class="link-light" href="https://www.github.com/IgorFroehner">Igor Froehner</a>
         </div>

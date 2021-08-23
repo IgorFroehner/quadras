@@ -7,17 +7,14 @@
         <div class="card p-5 mt-5 m-5">
             {% if erro %}
                 <div class="alert alert-dismissible alert-danger">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    {{ erro }}
+                    <h1>Unauthorized</h1>
+                    <p>The server could not verify that you are authorized to access the URL requested.
+                        You either supplied the wrong credentials (e.g. a bad password),
+                        or your browser doesn't understand how to supply the credentials required.</p>
                 </div>
             {% endif %}
-            {{ form_macro(form) }}
         </div>
     </div>
 {% endblock %}
 
-{% block script %}
-    {% if title == 'Agendamento' %}
-        <script src="../static/javascript/agendamento.js"></script>
-    {% endif %}
-{% endblock %}
+{% block script %}{% endblock %}

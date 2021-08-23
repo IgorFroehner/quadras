@@ -1,4 +1,3 @@
-from sqlalchemy.exc import SQLAlchemyError
 from flask import Blueprint, render_template, redirect
 
 from model import agendamento_dao as dao
@@ -15,7 +14,6 @@ def agendamento():
     for row in rows:
         table.append({
             'Data e Hora': row.data_hora,
-            # 'Quadra:': f'{row.quadra}',
             'Quadra:': f'Bloco: {row.quadra.bloco.id_bloco}; Quadra: {row.quadra.largura}m X {row.quadra.comprimento}m',
             'Esporte': row.esporte.nome,
         })
@@ -27,7 +25,6 @@ def agendamento_form():
     form = AgendamentoForm()
     erro = None
     if form.validate_on_submit():
-        print(form.data)
         dao.insert_from_dict(form.data)
         return redirect('/agendamento')
     return render_template('form.html', title='Agendamento', form=form, erro=erro)

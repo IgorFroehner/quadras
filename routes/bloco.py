@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect
+from flask_login import login_required
 
 from model import bloco_dao as dao
 from forms import BlocoForm
@@ -16,6 +17,7 @@ def bloco():
 
 
 @blue.route('/bloco_form', methods=['GET', 'POST'])
+@login_required
 def bloco_form():
     form = BlocoForm()
     if form.validate_on_submit():

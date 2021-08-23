@@ -15,8 +15,7 @@ def find(params: dict):
 
 
 def insert(esporte: Esporte):
-    db.session.add(esporte)
-    db.session.commit()
+    esporte.save()
 
 
 def insert_from_dict(dict_esporte: dict):
